@@ -1,0 +1,10 @@
+{
+  "cmake.useCMakePresets": "always",
+  "cmake.configureOnOpen": true,
+  "cmake.debugConfig": {
+    "args": ["${workspaceFolder}/data/input.txt"]
+  },
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+
+  "cmake.sourceDirectory": "${workspaceFolder}"
+}
