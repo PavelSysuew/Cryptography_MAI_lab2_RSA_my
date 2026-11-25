@@ -37,3 +37,4 @@ int main() {
     std::cout << "Прошло групп: " << passed << " из " << std::size(groups) << '\n';
     return passed == std::size(groups) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
+
