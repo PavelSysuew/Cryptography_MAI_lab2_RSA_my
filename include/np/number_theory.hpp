@@ -16,7 +16,7 @@ public:
     int legendre(const BigInt& a, const BigInt& p) const;
 
     // Символ Якоби (a/n), n — нечётное положительное. Возвращает -1, 0 или 1.
-    int jacobi(const BigInt& a, const BigInt& n) const;
+    int jacobi(BigInt a, BigInt n) const;
 
     // НОД: классический алгоритм Евклида
     BigInt gcd(const BigInt& a, const BigInt& b) const;
@@ -28,7 +28,7 @@ public:
     BigInt binary_gcd(const BigInt& a, const BigInt& b) const;
 
     // Быстрое возведение в степень по модулю
-    BigInt mod_pow(const BigInt& base, const BigInt& exp, const BigInt& mod) const;
+    BigInt mod_pow(BigInt base, BigInt exp, const BigInt& mod) const;
 
     // Функция Эйлера тремя способами
     BigInt euler_phi_by_definition(const BigInt& n) const;     // через сумму единиц

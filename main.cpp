@@ -1,7 +1,7 @@
 #include <exception>
 #include <iostream>
 
-#include "np/function.hpp"
+#include "function.hpp"
 #include "np/number_theory.hpp"
 
 int main() {

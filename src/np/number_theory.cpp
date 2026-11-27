@@ -3,15 +3,76 @@
 #include <boost/multiprecision/cpp_dec_float.hpp>
 
 #include <iostream>
+#include <utility>
 #include <stdexcept>
 
 
 int NumberTheory::legendre(const BigInt& a, const BigInt& p) const {
-
+    if (p % 2 == 0) {
+        throw std::invalid_argument("legendre: знаменатель должен быть простым НЕЧЁТНЫМ числом");
+    }
+    if (p <= 1) {
+        throw std::invalid_argument("legendre: знаменатель должен быть простым числом БОЛЬШЕ 2");
+    }
+    const BigInt exponent = (p - 1) / 2;
+    const BigInt residue = mod_pow(a, exponent, p);
+    if (residue == 0) return 0;
+    if (residue == 1) return 1;
+    if (residue == p - 1) return -1;
+    throw std::invalid_argument("legendre: знаменатель должен быть простым числом");
 }
     
 
-int NumberTheory::jacobi(const BigInt& a, const BigInt& n) const {
+int NumberTheory::jacobi(BigInt a, BigInt n) const {
+    if (n <= 0 || (n & 1) == 0) {
+        throw std::invalid_argument("jacobi: знаменатель должен быть положительным нечётным числом");
+    }
+
+    // Используем свойство периодичности
+    a %= n;
+
+    // Если остаток отрицательный, делаем его неотрицательным
+    if (a < 0) {
+        a += n;
+    }
+
+    // Здесь в конце концов появится ответ
+    int result = 1;
+
+    while (a != 0) {
+        //остаток знаменателя
+        BigInt r = n & 7;
+
+        // необходимо ли менять знак при выделении множителя 2
+        bool flip = r == 3 || r == 5;
+
+        // Пока силитель чётный
+        while ((a & 1) == 0) {
+            // Делим числитель на 2
+            a >>= 1;
+
+            // Учитываем символ Якоби от двойки.
+            // J(2a, n) = J(2, n) * J(a, n)
+            if (flip) {
+                result = -result;
+            }
+        }
+
+        // Применяем квадратичный закон взаимности
+        if ((a & 3) == 3 && (n & 3) == 3) {
+            // Меняем знак
+            result = -result;
+        }
+
+        // Меняем числитель и знаменатель местами.
+        std::swap(a, n);
+        // По свойтсву периодичности
+        a %= n;
+    }
+
+    // Если n = 1, исходные числа взаимно простые и возвращаем накопленный знак.
+    // Если n > 1, числа имеют общий делитель, поэтому символ Якоби равен нулю.
+    return n == 1 ? result : 0;
     
 }
 
@@ -91,8 +152,32 @@ BigInt NumberTheory::binary_gcd(const BigInt& a, const BigInt& b) const {
     return v << k;
 }
 
-BigInt NumberTheory::mod_pow(const BigInt& base, const BigInt& exp, const BigInt& mod) const {
-    
+BigInt NumberTheory::mod_pow(BigInt base, BigInt exp, const BigInt& mod) const {
+    if (mod <= 0) {
+        throw std::invalid_argument("mod_pow: модуль должен быть натуральным числом");
+    }
+    if (exp < 0) {
+        throw std::invalid_argument("mod_pow: показатель степени не должен быть отрицательным числом");
+    }
+
+    BigInt result = 1 % mod; // Здесь окажется ответ
+
+    base = base % mod;
+    if (base  < 0) {
+        // Хочу избавиться от итрицательного остатка
+        base += mod;
+    }
+
+    while (exp != 0) {
+        if (exp % 2 == 1) {
+            result = (result * base) % mod;
+        }
+        base = (base * base ) % mod;
+        exp = exp / 2;   
+    }
+    return result;
+
+
 }
 
 // Функция Элера через сумму единиц
