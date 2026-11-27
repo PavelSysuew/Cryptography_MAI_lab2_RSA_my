@@ -313,7 +313,7 @@ BigInt NumberTheory::carmichael_lambda(const BigInt& n) const {
 
 
 int menu_number_theory() {
-    std::cout << "МЕНЮ. Математичсекие функции теории чисел" << std::endl;
+    std::cout << "\nМЕНЮ. Математичсекие функции теории чисел" << std::endl;
     std::cout << "1.  Вычисление значения символа Лежандра" << std::endl;
     std::cout << "2.  Вычисление значения символа Якоби" << std::endl;
     std::cout << "3.  Алгоритм Евклида" << std::endl;
@@ -420,7 +420,6 @@ void number_theory() {
         } catch (const std::exception& e) {
             std::cout << "Ошибка: " << e.what() << std::endl;
         }
-        std::cout << std::endl;
     }
 }
 

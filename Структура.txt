@@ -5,15 +5,13 @@ include/
 ├── fermat_test.hpp               # задание 2: тест Ферма
 ├── solovay_strassen_test.hpp     # задание 2: тест Соловея–Штрассена
 ├── miller_rabin_test.hpp         # задание 2: тест Миллера–Рабина
-├── rsa.hpp                       # задание 3: сервис RSA + вложенный генератор ключей + вложенный enum
-└── wiener_attack.hpp             # задание 4: атака Винера + генератор уязвимых ключей
+└── rsa.hpp                       # задание 3: сервис RSA + вложенный генератор ключей + вложенный enum
 src/
 ├── number_theory.cpp
 ├── primality_test.cpp
 ├── fermat_test.cpp
 ├── solovay_strassen_test.cpp
 ├── miller_rabin_test.cpp
-├── rsa.cpp
-└── wiener_attack.cpp
+└── rsa.cpp
 tests/                            # позже: проверки на известных значениях
-main.cpp                          # демонстрация всех четырёх заданий
+main.cpp                          # демонстрация трёх заданий
